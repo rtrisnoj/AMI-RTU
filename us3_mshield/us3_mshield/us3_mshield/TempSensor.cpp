@@ -205,7 +205,7 @@ sapi_error_t temp_build_payload(char *buf, float *reading)
 {
 	int sendInterval2 = ParamSendInterval();
 	int sampleRate2 =  ParamSampleRate();
-	char 		payload[128];
+	char 		payload[128]; // REMEMBER!! maximum payload 118 character payload character
 	char		temp_payload[128];
 	char		epoch1[32];
 	char		reading_buf[256];
