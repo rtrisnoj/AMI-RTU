@@ -100,9 +100,8 @@ void setup()
 	pinMode(PIN_SDA,INPUT);
 	//Initialize Variables for the Software
 	loadGlobalVariables();
-	sendInterval1 = ParamSendInterval();
 	sampleRate1 = ParamSampleRate();
-	
+	sendInterval1 = ParamSendInterval();
 	//logging array 
 	
 	// Register temp sensor

@@ -41,12 +41,10 @@ Networks, Inc.
 SPIFlash flash;
 int sendInterval = 0;
 int sampleRate = 0;
-int Digital0 = 0;
-int Digital1 = 0;
-int Analog0 = 0;
-int Analog1 = 0;
-int Analog2 = 0;
-int Analog3 = 0;
+int Digital10 = 0;
+int Digital11 = 0;
+int Relay1 = 0;
+int Relay2 = 0;
 int Analog4 = 0;
 int Analog5 = 0;
 
@@ -258,7 +256,7 @@ void sapi_run()
 //
 //////////////////////////////////////////////////////////////////////////
 int ParamSendInterval(){
-	return sendInterval;
+	return sampleRate*sendInterval;
 }
 
 int ParamSampleRate(){
@@ -279,92 +277,69 @@ bool setValue(String parameter, String value)
 		//         sampleRate = (int)value;
 		sampleRate = value.toInt();
 	}
-	else if (parameter == "Digital0")
+	else if (parameter == "Digital10")
 	{
-		Digital0 = value.toInt();
-		if (Digital0 == 0){
+		Digital10 = value.toInt();
+		if (Digital10 == 0){
 			pinMode(D10,INPUT);
 		}
-		else if(Digital0 == 1){
+		else if(Digital10 == 1){
 			pinMode(D10,OUTPUT);
 			digitalWrite(D10, HIGH);
 		}
-		Serial.println("Digital0: " + value);
+		Serial.println("Digital10: " + value);
 	}
-	else if (parameter == "Digital1")
+	else if (parameter == "Digital11")
 	{
-		Digital1 = value.toInt();
-		if (Digital1 == 0){
+		Digital11 = value.toInt();
+		if (Digital11 == 0){
 			pinMode(D11,INPUT);
 		}
-		else if(Digital1 == 1){
+		else if(Digital11 == 1){
 			pinMode(D11,OUTPUT);
 			digitalWrite(D11, HIGH);
 		}
-		Serial.println("Digital1: " + value);
+		Serial.println("Digital11: " + value);
 	}
 	
-	else if (parameter == "Analog0")
+	else if (parameter == "Relay1")
 	{
-		Analog0 = value.toInt();
+		Relay1 = value.toInt();
 		
-		if (Analog0 == 0){
-			pinMode(A0,INPUT);
-			analogReadResolution(12);
+		if (Relay1 == 0){
+			pinMode(D6,OUTPUT);
+			pinMode(D7,OUTPUT);
+			digitalWrite(D6, LOW);
+			digitalWrite(D7, HIGH);
 		}
-		else if(Analog0 == 1){
-			pinMode(A0,OUTPUT);
-			analogWrite(A0,1023);
+		else if (Relay1 == 1){
+			pinMode(D6,OUTPUT);
+			pinMode(D7,OUTPUT);
+			digitalWrite(D6, HIGH);
+			digitalWrite(D7, LOW);
 		}
-		Serial.println("Analog0: " + value);
+		Serial.println("Relay1: " + value);
 	}
-	else if (parameter == "Analog1")
+	else if (parameter == "Relay2")
 	{
-		Analog1 = value.toInt();
+		Relay2 = value.toInt();
 		
-		if (Analog1 == 0){
-			pinMode(A1,INPUT);
-			analogReadResolution(12);
+		if (Relay2 == 0){
+			pinMode(D8,OUTPUT);
+			pinMode(D9,OUTPUT);
+			digitalWrite(D8, LOW);
+			digitalWrite(D9, HIGH);
 		}
-		else if(Analog1 == 1){
-			pinMode(A1,OUTPUT);
-			analogWrite(A1,1023);
+		else if (Relay2 == 1){
+			pinMode(D8,OUTPUT);
+			pinMode(D9,OUTPUT);
+			digitalWrite(D8, HIGH);
+			digitalWrite(D9, LOW);
 		}
-		Serial.println("Analog1: " + value);
+		Serial.println("Relay2: " + value);
 	}
-		else if (parameter == "Analog2")
-	{
 		
-		//         sampleRate = (int)value;
-		Analog2 = value.toInt();
-		
-		if (Analog2 == 0){
-			pinMode(A2,INPUT);
-			analogReadResolution(12);
-		}
-		else if(Analog2 == 1){
-			pinMode(A2,OUTPUT);
-			analogWrite(A2,1023);
-		}
-		Serial.println("Analog2: " + value);
-	}
-		else if (parameter == "Analog3")
-	{
-		
-		//         sampleRate = (int)value;
-		Analog3 = value.toInt();
-		
-		if (Analog3 == 0){
-			pinMode(A3,INPUT);
-			analogReadResolution(12);
-		}
-		else if(Analog3 == 1){
-			pinMode(A3,OUTPUT);
-			analogWrite(A3,1023);
-		}
-		Serial.println("Analog3: " + value);
-	}
-		else if (parameter == "Analog4")
+	else if (parameter == "Analog4")
 	{
 		
 		Analog4 = value.toInt();
@@ -375,7 +350,7 @@ bool setValue(String parameter, String value)
 		}
 		else if(Analog4 == 1){
 			pinMode(A4,OUTPUT);
-			analogWrite(A4,300);
+			analogWrite(A4,1000);
 		}
 		Serial.println("Analog4: " + value);
 	}
@@ -391,7 +366,7 @@ bool setValue(String parameter, String value)
 		}
 		else if(Analog5 == 1){
 			pinMode(A5,OUTPUT);
-			analogWrite(A5,300);
+			analogWrite(A5,600);
 		}
 		Serial.println("Analog5: " + value);
 	}

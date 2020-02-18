@@ -185,7 +185,7 @@ int readLimitingSwitch(){
 
 float readSO2Sensor(){
 	analogReadResolution(12);
-	digitalWrite(D6,HIGH);
+	//digitalWrite(D6,HIGH);
 	delay(5000);
 	return analogRead(A2) * 20 / 4096; //20 ppm max and 0 ppm min
 }
@@ -238,12 +238,11 @@ sapi_error_t temp_build_payload(char *buf, float *reading)
 	
 	//read SO2 sensor
 	sprintf(rgas, "%.2f;", readSO2Sensor());
-	digitalWrite(D6,LOW); // turn off the relay
+	//digitalWrite(D6,LOW); // turn off the relay
 	strcat(temp_payload,"44,"); //Datatype for Limiting Switch
 	strcat(temp_payload, rgas);
 	
 	strcat(payload,temp_payload);
-	
 	
 	if (counter1 >= (sendInterval2 / sampleRate2 - 1) ){
 		strcat(payloadFinal, payload);
